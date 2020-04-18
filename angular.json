@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "registrojornada"
+    }
+  },
+  "defaultProject": "registrojornada",
+  "cli": {
+    "analytics": false
+  }
 }
