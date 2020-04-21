@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Listado de empleados</h4>
+  
+          <h6 class="card-subtitle">
+            Total de registros: {{ paginacion.registros }}
+          </h6>
+          <div class="row justify-content-end">
+              <div class="col-md-4">
+                <select (change)= "filtrarEmpresa($event.target.value)" class="form-control" name="empresa">
+                    <option value="">Seleeciona empresa</option>
+                    <option *ngFor="let empresa of empresas" value= "{{empresa.id}}">{{empresa.nombre}}</option>
+                  </select>
+              </div>
+          </div>
+
+          <div class="table-responsive">
+            <table
+              id="demo-foo-addrow"
+              class="table m-t-10 full-color-table full-info-table hover-table"
+              data-page-size="10"
+            >
+              <thead>
+                <tr>
+                  <th class="text-center">Id</th>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Apellidos</th>
+                  <th class="text-center">DNI</th>
+                  <th class="text-center">Usuario</th>
+                  <th class="text-center">Turno</th>
+                  <th class="text-center">Sede</th>
+                  <th class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let empleado of empleados">
+                  <td>{{ empleado.id }}</td>
+                  <td>{{ empleado.nombre }}</td>
+                  <td>{{ empleado.apellidos }}</td>
+                  <td>{{ empleado.dni }}</td>
+                  <td>{{ empleado.usuario.login }}</td>
+                  <td>{{ empleado.turno.turno }}</td>
+                  <td>{{ empleado.sede.nombre }}</td>
+  
+                  <td class="text-center">
+                    <button
+                      [routerLink]=" ['/sede',empleado.id]"
+                      class="btn btn-info btn-sm mr-2"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+  
+                    <button
+                      (click)="eliminarEmpleado(empleado)"
+                      class="btn btn-danger btn-sm"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-end no-gutters">
+              <div>
+                <button  [routerLink]="['/sede','nuevo']" type="button" class="mb-2 btn btn-primary btn-sm">
+                  Nuevo Empleado
+                </button>
+              </div>
+            </div>
+            <div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-sm justify-content-end">
+                  <li class="page-item">
+                    <a
+                      (click)="cambiarPagina(-1)"
+                      class="page-link"
+                      >Anterior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      (click)="cambiarPagina(1)"
+                      class="page-link"
+                      >Siguiente</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

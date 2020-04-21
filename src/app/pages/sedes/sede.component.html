@@ -1,0 +1,132 @@
+<div class="row justify-content-center">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Modificar Sede</h4>
+
+        <h6 class="card-subtitle"></h6>
+        <div class="">
+          <div class="container">
+            <form
+              #f="ngForm"
+              ngNativeValidate
+              (ngSubmit)="procesar(f)"
+              class="m-t-40"
+            >
+              <div class="form-row">
+                <div class="form-group col-md-1 m-b-40">
+                  <label for="input1">ID</label>
+                  <input
+                    [(ngModel)]="sede.id"
+                    name="id"
+                    type="text"
+                    class="form-control"
+                    disabled
+                  />
+                  <span class="bar"></span>
+                </div>
+                <div class="form-group col-md-3 m-b-40">
+                  <label for="empresa">Empresa </label>
+                  <input hidden value="{{empresas[0].nombre}} "/>
+                  <select
+                    [(ngModel)]="sede.empresa.id"
+                    name="empresa"
+                    class="form-control"
+                    required
+                  >
+                    <option value="">Seleccionar empresa</option>
+                    <option
+                      *ngFor="let e of this.empresas"
+                      [value]="e.id"
+                      >{{ e.nombre }}</option
+                    >
+                  </select>
+                </div>
+                <div class="form-group col-md-8 m-b-40">
+                  <label for="input2">Nombre</label>
+                  <input
+                    [(ngModel)]="sede.nombre"
+                    type="text"
+                    name="nombre"
+                    class="form-control"
+                    required
+                  />
+                  <span class="bar"></span>
+                </div>
+              </div>
+
+              <div class="form-group m-b-40">
+                <span class="bar"></span>
+                <label for="direccion">Dirección</label>
+                <input
+                  [(ngModel)]="sede.direccion"
+                  name="direccion"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+                <span class="bar"></span>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <app-map></app-map>
+                 
+                    <button
+                    (click)="obtenerCoordenadas(sede.direccion)"
+                    type="button"
+                    class="btn btn-info btn-block mt-2 mb-2"
+                  >
+                    Obtener coordenadas
+                  </button>
+                 
+
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-row">
+                    <div class="form-group col-md-12 m-b-40">
+                      <label for="latitud">Latitud</label>
+                      <input
+                        [(ngModel)]="sede.latitud"
+                        name="latitud"
+                        type="text"
+                        class="form-control"
+                      />
+                      <span class="bar"></span>
+                    </div>
+                    <div class="form-group col-md-12 m-b-40">
+                      <label for="longitud">Longitud</label>
+                      <input
+                        [(ngModel)]="sede.longitud"
+                        type="text"
+                        name="longitud"
+                        class="form-control"
+                      />
+                      <span class="bar"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-end no-gutters">
+                <div>
+                  <button
+                    [routerLink]="['/sedes']"
+                    type="button"
+                    class="mb-2 btn btn-secondary mr-2"
+                  >
+                    Volver
+                  </button>
+                  <button type="submit" class="mb-2 btn btn-info mr-2">
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

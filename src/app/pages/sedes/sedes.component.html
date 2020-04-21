@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Listado de sedes</h4>
+
+        <h6 class="card-subtitle">
+          Total de registros: {{ paginacion.registros }}
+        </h6>
+        <div class="table-responsive">
+          <table
+            id="demo-foo-addrow"
+            class="table m-t-10 full-color-table full-info-table hover-table"
+            data-page-size="10"
+          >
+            <thead>
+              <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Dirección</th>
+                <th class="text-center">Longitud</th>
+                <th class="text-center">Latitud</th>
+                <th class="text-center">Empresa</th>
+                <th class="text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sede of sedes">
+                <td>{{ sede.id }}</td>
+                <td>{{ sede.nombre }}</td>
+                <td>{{ sede.direccion }}</td>
+                <td>{{ sede.latitud }}</td>
+                <td>{{ sede.longitud }}</td>
+                <td>{{ sede.empresa.nombre }}</td>
+
+                <td class="text-center">
+                  <button
+                    [routerLink]=" ['/sede',sede.id]"
+                    class="btn btn-info btn-sm mr-2"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+
+                  <button
+                    (click)="eliminarSede(sede)"
+                    class="btn btn-danger btn-sm"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row justify-content-end no-gutters">
+            <div>
+              <button  [routerLink]="['/sede','nuevo']" type="button" class="mb-2 btn btn-primary btn-sm">
+                Nueva Sede
+              </button>
+            </div>
+          </div>
+          <div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-sm justify-content-end">
+                <li class="page-item">
+                  <a
+                    (click)="cambiarPagina(-1)"
+                    class="page-link"
+                    >Anterior</a
+                  >
+                </li>
+                <li>
+                  <a
+                    (click)="cambiarPagina(1)"
+                    class="page-link"
+                    >Siguiente</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

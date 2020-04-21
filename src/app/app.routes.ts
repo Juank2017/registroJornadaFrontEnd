@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 
 const appRoutes: Routes = [
-
+    { path: '', component: LoginComponent},
    
     { path: 'login', component: LoginComponent},
   

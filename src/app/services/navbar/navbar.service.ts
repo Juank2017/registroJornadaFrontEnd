@@ -37,14 +37,30 @@ export class NavbarService {
       ]
     }
   ];
-   admin: boolean;
-   user: boolean;
-   manager: boolean;
+   admin: boolean = false;
+   user: boolean = false;
+   manager: boolean = false;
 
   constructor() { 
-    this.admin = false;
-    this.manager = false;
-    this.user = false;
+
+    
+  }
+
+  setNavbar(){
+    switch(localStorage.getItem('rol')){
+      case 'ADMIN':
+        this.admin = true;
+        break;
+      case 'USER':
+        this.user = true;
+        break;
+      case 'MANAGER':
+
+        this.user = true;
+        this.manager = true;
+        console.log(this.user,this.manager);
+        break;
+    }
   }
 resetNavBar(){
   this.admin = false;
@@ -62,6 +78,7 @@ resetNavBar(){
         this.user = !this.user;
         break;
       case 'manager':
+       
         this.manager = !this.manager;
         break;
     }

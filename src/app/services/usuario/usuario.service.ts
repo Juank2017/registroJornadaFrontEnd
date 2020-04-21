@@ -22,6 +22,8 @@ export class UsuarioService {
     this.token = '';
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('id');
     this.router.navigate(['/login']);
   }
 

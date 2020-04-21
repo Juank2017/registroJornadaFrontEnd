@@ -4,6 +4,7 @@ import { UsuarioService } from '../services/usuario/usuario.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { NavbarService } from '../services/navbar/navbar.service';
+import { Rol } from '../models/rol.model';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { NavbarService } from '../services/navbar/navbar.service';
 export class LoginComponent implements OnInit {
   recuerdame: boolean = false;
   login: string;
-  roles: string;
+  roles: Rol[];
 
   constructor(
     public _usuarioService: UsuarioService,
@@ -42,24 +43,30 @@ export class LoginComponent implements OnInit {
     this._usuarioService
       .login(usuario, forma.value.recuerdame)
       .subscribe((resp: any) => {
-        console.log(resp);
+        // cuando recibe la respuesta correcta, guarda en localStorage el rol del usuario
+        // y redirige al usuario a la página de entrada según el rol
+        // resetea el menu del navbar para que se actualice según el valor que se le asigne a rol en el localStorage.
         if (resp.mensaje === 'true') {
-          this.roles = JSON.stringify(resp.usuario.roles);
-          this._navbarService.resetNavBar();
-          if (this.roles.indexOf('ADMIN_ROL') !== -1) {
-            console.log('redirige a admin');
-            this._navbarService.cambiaMenu('admin');
-            this.router.navigate(['/empresas']);
-          } else {
-            console.log('redirige a dashboard');
-            console.log('antes cambia user', this._navbarService.user);
-            this._navbarService.cambiaMenu('user');
-            console.log('cambia user', this._navbarService.user);
-            if (this.roles.indexOf('MANAGER_ROL') !== -1) {
-              this._navbarService.cambiaMenu('manager');
-            }
 
-            this.router.navigate(['/dashboard']);
+          this._navbarService.resetNavBar();
+
+          this.roles = resp.usuario.roles;
+                
+          if (this.roles.find(rol => (rol.rol === 'ADMIN_ROL'))) {
+        
+            localStorage.setItem('rol', 'ADMIN');
+            this.router.navigate(['/empresas']);
+        
+          } else {
+            
+            this._navbarService.cambiaMenu('user');
+            localStorage.setItem('rol','USER');
+            if (this.roles.find(rol => (rol.rol === 'MANAGER_ROL'))) {
+              localStorage.setItem('rol','MANAGER');
+        
+            }
+            this.router.navigate(['/marcado']);
+
           }
         }
       });
