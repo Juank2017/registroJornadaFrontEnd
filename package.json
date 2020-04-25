@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
     "@asymmetrik/ngx-leaflet": "^7.0.0",
+    "jquery": "^3.5.0",
     "leaflet": "^1.6.0",
     "rxjs": "~6.5.4",
     "sweetalert": "^2.1.2",

@@ -1,29 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/models/usuario.model';
-import { Turno } from 'src/app/models/turno.model';
 
 import { Empleado } from '../../../models/empleado.model';
-import { EmpleadosService, UsuarioService } from 'src/app/services/service.index';
-import { Sede } from 'src/app/models/sede.model';
+
 import swal from 'sweetalert';
-import { EmpresasService } from '../../../services/empresas/empresas.service';
+
+import {
+  EmpleadosService,
+  UsuarioService,
+} from '../../../services/service.index';
+import { EmpresasService } from '../../../services/service.index';
+import { SedesService } from '../../../services/service.index';
 
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class EmpleadosComponent implements OnInit {
-
-  usuario: Usuario = new Usuario('', '', '', [] , []);
-  turno: Turno = new Turno('', '');
-  sede: Sede = new Sede('' , '' , '', '', '', null);
-  empleado: Empleado = new Empleado('', '', '', '', this.usuario, this.turno, this.sede);
-
   paginacion: any;
   empleados: Empleado[] = [];
-
 
   paginaActual = 1;
   paginasTotales: number;
@@ -34,31 +29,41 @@ export class EmpleadosComponent implements OnInit {
   constructor(
     public _empleadosService: EmpleadosService,
     public userService: UsuarioService,
-    public _empresasService: EmpresasService
+    public _empresasService: EmpresasService,
+    public _sedesService: SedesService
   ) {
     // al construir el componente cargamos las empleados para pasarlas a la vista
-    this.obtenerEmpleados();
+    if (this.idEmpresaSeleccionada !== '') {
+      this.filtrarEmpresa(this.idEmpresaSeleccionada);
+    }
+
+    //this.obtenerEmpleados();
     console.log(this.empleados);
   }
   /**
    * obtiene las empleados
    */
   obtenerEmpleados() {
-    this._empleadosService.getEmpleados(this.paginaActual).subscribe((resp: any) => {
-      this.empleados = resp.empleados;
-      this.paginacion = resp.paginacion;
-      this.paginasTotales = resp.paginacion.paginas;
-    });
+    this._empleadosService
+      .getEmpleados(this.paginaActual)
+      .subscribe((resp: any) => {
+        this.empleados = resp.empleados;
+        this.paginacion = resp.paginacion;
+        this.paginasTotales = resp.paginacion.paginas;
+      });
   }
 
-  filtrarEmpresa(id: string){
+  filtrarEmpresa(id: string) {
     console.log(id);
     this.idEmpresaSeleccionada = id;
-    this._empleadosService.getEmpleadosEmpresa(id, this.paginaActual).subscribe((resp: any) => {
-      this.empleados = resp.empleados;
-      this.paginacion = resp.paginacion;
-      this.paginasTotales = resp.paginacion.paginas;
-    });
+    this._sedesService.empresaSeleccionada = this.idEmpresaSeleccionada;
+    this._empleadosService
+      .getEmpleadosEmpresa(id, this.paginaActual)
+      .subscribe((resp: any) => {
+        this.empleados = resp.empleados;
+        this.paginacion = resp.paginacion;
+        this.paginasTotales = resp.paginacion.paginas;
+      });
   }
   /**
    * acción de los botones siguiente y anterior
@@ -72,13 +77,11 @@ export class EmpleadosComponent implements OnInit {
       return;
     }
     this.paginaActual = this.paginaActual + valor;
-    if (this.idEmpresaSeleccionada !== ''){
+    if (this.idEmpresaSeleccionada !== '') {
       this.filtrarEmpresa(this.idEmpresaSeleccionada);
-    }else {
+    } else {
       this.obtenerEmpleados();
     }
-    
-
   }
 
   /**
@@ -88,14 +91,14 @@ export class EmpleadosComponent implements OnInit {
   eliminarEmpleado(empleado: Empleado) {
     swal({
       title: '¿Está seguro?',
-      text: 'Está a punto de eliminar la empleado ' + empleado.nombre,
+      text: 'Está a punto de eliminar el empleado ' + empleado.nombre,
       icon: 'warning',
       buttons: ['Cancelar', 'Aceptar'],
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         this._empleadosService.deleteEmpleado(empleado).subscribe((borrado) => {
-          this.obtenerEmpleados();
+          this.filtrarEmpresa(this.idEmpresaSeleccionada);
         });
       }
     });
@@ -103,11 +106,11 @@ export class EmpleadosComponent implements OnInit {
     this._empleadosService.deleteEmpleado(empleado);
   }
 
-  ngOnInit(): void {    // cargamos las empresas para rellenar el select en el formulario
+  ngOnInit(): void {
+    // cargamos las empresas para rellenar el select en el formulario
     this._empresasService.getEmpresas(-1).subscribe((resp: any) => {
       console.log(resp.empresas);
       this.empresas = resp.empresas;
-    }); }
+    });
+  }
 }
-
-

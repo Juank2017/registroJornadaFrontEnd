@@ -4,6 +4,7 @@ import { URL_SERVICIOS } from '../../config/config';
 import { Usuario } from 'src/app/models/usuario.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 
 @Injectable({
@@ -45,6 +46,22 @@ export class UsuarioService {
         return resp;
       })
     );
+  }
+
+  createUser(usuario: Usuario){
+    const url = URL_SERVICIOS + 'usuarios/create?token=' + this.token;
+    return this._http.post(url, usuario).pipe(
+      map( (resp: any) => {
+        swal('El empleado se ha creado', {
+          icon: 'success',
+        });
+        return resp;
+      }));
+  }
+
+  getRoles(){
+    const url = URL_SERVICIOS + 'roles?token=' + this.token;
+    return this._http.get(url);  
   }
 
   cargarStrorage(){

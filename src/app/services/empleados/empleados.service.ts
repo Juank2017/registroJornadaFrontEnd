@@ -8,6 +8,7 @@ import swal from 'sweetalert';
 import { Sede } from 'src/app/models/sede.model';
 import { Turno } from 'src/app/models/turno.model';
 import { Usuario } from 'src/app/models/usuario.model';
+import { forkJoin } from 'rxjs';
 
 /**
  * Servicio para el CRUD de empleados en el backend
@@ -16,6 +17,8 @@ import { Usuario } from 'src/app/models/usuario.model';
   providedIn: 'root'
 })
 export class EmpleadosService {
+
+  
 
   // token recuperado del localStorage
   token: string = localStorage.getItem('token');
@@ -45,14 +48,14 @@ export class EmpleadosService {
 
     const url = URL_SERVICIOS + 'empleados/empleado/' + id + '?token=' + this.token;
 
-    return this._http.get(url).pipe(map((resp: any) => {
-      const sede: Sede = resp.sede;
-      const turno: Turno = resp.turno;
-      const usuario: Usuario = resp.usuario;
+    return this._http.get(url);
+    // .pipe(map((resp: any) => {
+    //   console.log('resp desde servicio  ',resp);
+      
      
-      const empleado: Empleado = new Empleado(resp.id, resp.nombre, resp.apellidos, resp.dni, usuario, turno, sede);
-      return empleado;
-    }));
+    //   const empleado: Empleado = resp;
+    //   return empleado;
+    // }));
   }
 
   getEmpleadosEmpresa(id: string, pagina: number){
@@ -61,20 +64,24 @@ export class EmpleadosService {
     return this._http.get(url);
   }
 
+  getEmpleadoByLogin(login: string){
+    const url = URL_SERVICIOS + 'empleados/findByLogin/' + login + '?token=' + this.token;
+    return this._http.get(url);
+  }
 /**
  * Crea una empleado
  * @param empleado
  */
   createEmpleado(empleado: Empleado){
-
+    console.log('me llaman create');
     const url = URL_SERVICIOS + 'empleados/create?token=' + this.token;
 
     return this._http.post(url, empleado).pipe(
       map( (resp: any) => {
-        swal('La empleado se ha creado', {
+        swal('El empleado se ha creado', {
           icon: 'success',
         });
-        return true;
+        return resp;
       }));
   }
   /**
@@ -83,14 +90,24 @@ export class EmpleadosService {
    */
   updateEmpleado(empleado: Empleado){
     const url = URL_SERVICIOS + 'empleados/update?token=' + this.token;
-
-    return this._http.put(url, empleado).pipe(
+    const urlUsers = URL_SERVICIOS + 'usuarios/update?token=' + this.token;
+    const obserUsuario = this._http.put(urlUsers, empleado.usuario).pipe(
       map( (resp: any) => {
+        console.log(resp);
+        swal('El usuario ' + resp.login + ' se ha actualizaco', {
+          icon: 'success',
+        });
+        return true;
+      }));
+    const obserEmpleado = this._http.put(url, empleado).pipe(
+      map( (resp: any) => {
+        console.log(resp);
         swal('El empleado ' + resp.nombre + ' se ha actualizaco', {
           icon: 'success',
         });
         return true;
       }));
+    return forkJoin ([obserUsuario, obserEmpleado]);
   }
   /**
    * Borra una empleado
@@ -103,7 +120,7 @@ export class EmpleadosService {
     return this._http.delete(url)
       .pipe(
         map( (resp: any) => {
-          swal('La empleado se ha eliminado', {
+          swal('El empleado se ha eliminado', {
             icon: 'success',
           });
           return true;

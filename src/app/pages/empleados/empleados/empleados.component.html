@@ -4,13 +4,14 @@
         <div class="card-body">
           <h4 class="card-title">Listado de empleados</h4>
   
-          <h6 class="card-subtitle">
+          <h6 class="card-subtitle" *ngIf="paginacion" >
             Total de registros: {{ paginacion.registros }}
           </h6>
           <div class="row justify-content-end">
               <div class="col-md-4">
+               
                 <select (change)= "filtrarEmpresa($event.target.value)" class="form-control" name="empresa">
-                    <option value="">Seleeciona empresa</option>
+                    <option value="">Selecciona empresa</option>
                     <option *ngFor="let empresa of empresas" value= "{{empresa.id}}">{{empresa.nombre}}</option>
                   </select>
               </div>
@@ -46,7 +47,7 @@
   
                   <td class="text-center">
                     <button
-                      [routerLink]=" ['/sede',empleado.id]"
+                      [routerLink]=" ['/empleado',empleado.id]"
                       class="btn btn-info btn-sm mr-2"
                     >
                       <i class="fas fa-edit"></i>
@@ -64,7 +65,7 @@
             </table>
             <div class="row justify-content-end no-gutters">
               <div>
-                <button  [routerLink]="['/sede','nuevo']" type="button" class="mb-2 btn btn-primary btn-sm">
+                <button  [routerLink]="['/empleado','nuevo']" type="button" class="mb-2 btn btn-primary btn-sm" [disabled] ="idEmpresaSeleccionada === ''" >
                   Nuevo Empleado
                 </button>
               </div>

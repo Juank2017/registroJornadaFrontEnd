@@ -4,6 +4,7 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
+
 $(function() {
     "use strict";
     $(function() {
@@ -131,7 +132,7 @@ $(function() {
         $(this).toggleClass("task-done");
     });
 
-    
+          
 
     // ============================================================== 
     // Collapsable cards
@@ -155,3 +156,4 @@ $(function() {
     });
 
 });
+

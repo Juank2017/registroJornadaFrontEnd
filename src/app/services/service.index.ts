@@ -1,3 +1,7 @@
+export { RelojService } from './reloj/reloj.service';
+export { HorarioService } from './horario/horario.service';
+export { ErrorService } from './errors/error.service';
+export { MarcadoService } from './marcado/marcado.service';
 export { MapService } from './map/map.service';
 export { EmpleadosService } from './empleados/empleados.service';
 export { SedesService } from './sedes/sedes.service';

@@ -1,1 +1,22 @@
-<p>marcado works!</p>
+<div class="row justify-content-center">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Marcado</h4>
+  
+       
+          <div class="row justify-content-center">
+              <div class="col-md-12 "> <app-relojp></app-relojp></div>
+              <div class="col-md-12 text-center"><button [disabled] = "hayMarcado" (click) = "entrada()"  class="btn btn-lg btn-success mb-3">Entrar</button></div>
+              <div class="col-md-12 text-center" *ngIf="!hayPausa"><button (click) ="pausar()" [disabled] = "!hayMarcado && !hayPausa" class="btn btn-lg btn-primary mb-3"><i class="fas fa-pause"></i></button></div>
+              <div class="col-md-12 text-center" *ngIf="hayPausa"><button (click) = "reanudar()" [disabled] = "!hayMarcado" class="btn btn-lg btn-primary mb-3"><i class="fas fa-play"></i></button></div>
+              <div class="col-md-12 text-center"><button (click) = "salida()" [disabled] = "!hayMarcado || hayPausa" class="btn btn-lg btn-danger mb-3">Salida</button></div>
+            
+          </div>
+
+      
+        </div>
+      </div>
+    </div>
+  </div>
+  

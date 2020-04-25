@@ -1,1 +1,141 @@
+<div class="row justify-content-center">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Modificar Empleado</h4>
+
+        <h6 class="card-subtitle"></h6>
+        <div class="">
+          <div class="container">
+            <form #f="ngForm" ngNativeValidate (ngSubmit)="procesar(f)"  class="m-t-40"  >
+              <div class="form-row">
+                <div class="form-group m-b-40 col-md-2" *ngIf="esEmpleado">
+                  <label for="id">ID Empleado</label>
+                  <input [(ngModel)] = "empleado.id"  class="form-control form-control-sm"  name="id"   disabled />
+                </div>
+                <div class="form-group m-b-40 col-md-2" >
+                  <label for="idUsuario">ID Usuario</label>
+                  <input [(ngModel)]= "empleado.usuario.idUSUARIO" class="form-control form-control-sm" name="idUsuario" disabled />
+                </div>
+                <div class="form-group form-check m-b-40 col-md-4 " *ngIf="esNuevo">
+                 
+                    <input [(ngModel)] = "esEmpleado" class="form-check-input" id="esEmpleado" value="" type="checkbox" name="esEmpleado">
+                    <label class="form-check-label"  for="esEmpleado">¿Es empleado?</label>
+            
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group m-b-40 col-md-4">
+                  <label for="">Login</label>
+                  <input [(ngModel)] = "empleado.usuario.login" type="email" class="form-control form-control-sm" name="login"  />
+                </div>
+                <div class="form-group m-b-40 col-md-4">
+                  <label for="password">Password</label>
+                  <input [(ngModel)] = "empleado.usuario.password" type="password" class="form-control form-control-sm" name="password"  />
+                </div>
+                <div class="form-group m-b-40 col-md-4" *ngIf="!esEmpleado">
+                    <label for="rol">Rol</label>
+                    <select [(ngModel)] = "rolAdmin"  class="form-control form-control-sm" name="roles" multiple size="1"  >
+                      
+                      <option [ngValue]="1" selected>ADMIN_ROL</option>  
+                  </select>
+                </div>
+              
+                <div class="form-group m-b-40 col-md-4" *ngIf="esEmpleado">
+                    <label for="rol">Rol</label>
+                    <select [(ngModel)] = "userRoles" [compareWith]="compararRoles" class="form-control form-control-sm" name="roles" multiple >
+                      
+                      <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.rol}}</option>  
+                  </select>
+                  </div>
+                </div>
+             <div *ngIf="esEmpleado" >
+                <div class="row">
+                    <div class="form-group col-md-6 m-b-40">
+                      <label for="nombre">Nombre</label>
+                      <input [(ngModel)] = "empleado.nombre" class="form-control form-control-sm" name="nombre"  />
+                      <label for="apellidos">Apellidos</label>
+                      <input [(ngModel)] = "empleado.apellidos" class="form-control form-control-sm" name="apellidos"  />
+                    </div>
+                    <div class="form-group col-md-6 m-b-40">
+                      <label for="dni">DNI</label>
+                      <input [(ngModel)] = "empleado.dni" class="form-control form-control-sm" name="dni"  />
+                      <label for="sede">Sede</label>
+                      <select [(ngModel)] = "empleado.sede.id" class="form-control form-control-sm" name="sede"  >
+                          <option value="">Elige sede</option> 
+                          <option *ngFor="let sede of sedes" value="{{sede.id}}">{{sede.nombre}}</option>  
+                      </select>
+  
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 m-b-40">
+                      <label for="turno">Turno</label>
+                    <select  [(ngModel)]= "empleado.turno.id" (change) = "cargaHorario($event.target.value)" class="form-control form-control-sm" name="turno"  >
+                      <option value="">Elige turno</option> 
+                      <option *ngFor="let turno of turnos" value="{{turno.id}}">{{turno.turno}}</option>  
+                  </select>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group col-md-6 m-b-20">
+                            <label for="horario">Horario entrada</label>
+                            <input [(ngModel)] = "horaEntrada" type="time" min= "{{minTimeEntrada}}" max = "{{maxTimeEntrada}}" class="form-control form-control-sm mb-2" name="horaEntrada"  />
+                        </div>
+                        <div class="form-group col-md-6 m-b-20">
+                            <label for="horario">Horario salida</label>
+                            <input [(ngModel)] = "horaSalida" type="time" min= "{{ minTimeSalida }}" max = "{{ maxTimeSalida }}" class="form-control form-control-sm mb-2" name="horaSalida"  />
+                            <!-- <select  [(ngModel)] = "horaEntrada" name="horaEntrada">
+                                <option *ngFor="let hora of horasManana" >08:00</option>
+                           
+                                id="time"  data-dtp="dtp_Lc0n6"
+        
+                            </select> -->
+                            
+                    
+          
+                        </div>
+                      </div>
+    
+                      <div class="row" *ngIf="esPartido">
+                        
+                            <div class="form-group col-md-6 m-b-40">
+                                <input  [(ngModel)] = "horaEntradaPartido" type="time" min= "{{ minTimeEntradaPartido }}" max = "{{ maxTimeEntradaPartido }}" class="form-control form-control-sm" name="horaEntradaPartido"  />
+                            </div>
+                            <div class="form-group col-md-6 m-b-40">
+                                <input   [(ngModel)] = "horaSalidaPartido" type="time" min= "{{ minTimeSalidaPartido }}" max = "{{ maxTimeSalidaPartido }}" class="form-control form-control-sm " name="horaSalidaPartido"  />
+                            </div>
+                           
+                            
+                   
+          
+                          
+                      </div>
+                  </div>
+
+
+              </div>
+             </div> 
+
+
+            <div class="row justify-content-end no-gutters">
+                <div>
+                  <button
+                    [routerLink]="['/empleados']"
+                    type="button"
+                    class="mb-2 btn btn-secondary mr-2"
+                  >
+                    Volver
+                  </button>
+                  <button type="submit" class="mb-2 btn btn-info mr-2">
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 

@@ -12,8 +12,8 @@ import swal from 'sweetalert';
   providedIn: 'root',
 })
 export class MapService {
-  latitude: any = 36.4591006;
-  longitude: any = -6.2057553;
+  latitude: any = '' ;
+  longitude: any = '';
   zoom: any = 18;
   // para modificar el centro una vez está configurado el mapa
   center: LatLng = latLng(36.4591006, -6.2057553);
@@ -70,13 +70,23 @@ export class MapService {
   /**
    * obtiene la localización actual usando el servicio del navegador.
    */
-  private setCurrentLocation() {
+  setCurrentLocation() {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
+        this.zoom = 15;},
+        (err) => {
+          console.log(err);
+          // swal({
+          //   title: 'error',
+          //   text: 'No se ha podido geolocalizar, contacte con soporte para solucionarlo. Se va a registrar el marcado sin geolocalizar.',
+          //   icon: 'warning',
+          //   dangerMode: true,
+          // });
+          return false;
+        });
     }
   }
 }

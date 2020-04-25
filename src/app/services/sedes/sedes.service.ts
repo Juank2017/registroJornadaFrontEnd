@@ -12,7 +12,7 @@ import { Empresa } from 'src/app/models/empresa.model';
   providedIn: 'root'
 })
 export class SedesService {
-
+  empresaSeleccionada: string;
   // token recuperado del localStorage
   token: string = localStorage.getItem('token');
 
@@ -47,6 +47,11 @@ export class SedesService {
       const sede: Sede = new Sede(resp.sede.id, resp.sede.nombre, resp.sede.direccion, resp.sede.longitud, resp.sede.latitud, empresa);
       return sede;
     }));
+  }
+
+  getSedeByEmpresaId(idEmpresa: string){
+    const url = URL_SERVICIOS + 'sedes/empresa/' + idEmpresa + '?token=' + this.token;
+    return this._http.get(url);
   }
 /**
  * Crea una sede

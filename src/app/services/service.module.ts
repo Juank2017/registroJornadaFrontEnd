@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './service.index';
-import { UsuarioService } from './usuario/usuario.service';
+import { UsuarioService } from './service.index';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginGuard } from './guards/login.guard';
-import { NavbarService } from './navbar/navbar.service';
+import { NavbarService } from './service.index';
 import { RouterModule } from '@angular/router';
-import { EmpresasService } from './empresas/empresas.service';
-import { SedesService } from './sedes/sedes.service';
+import { EmpresasService } from './service.index';
+import { SedesService } from './service.index';
 import { AdminGuard } from './guards/admin.guard';
-import { MapService } from './map/map.service';
-import { EmpleadosService } from './empleados/empleados.service';
+import { MapService } from './service.index';
+import { EmpleadosService } from './service.index';
+import { ErrorService } from './service.index';
+import { RelojService } from './service.index';
 
 
 
@@ -30,7 +32,9 @@ import { EmpleadosService } from './empleados/empleados.service';
     EmpresasService,
     SedesService,
     MapService,
-    EmpleadosService
+    EmpleadosService,
+    ErrorService,
+    RelojService
   ]
 })
 export class ServiceModule { }

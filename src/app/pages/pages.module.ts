@@ -16,6 +16,9 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MapComponent } from '../components/map/map.component';
 import { EmpleadosComponent } from './empleados/empleados/empleados.component';
 import { EmpleadoComponent } from './empleados/empleados/empleado.component';
+import { RelojComponent } from '../components/reloj/reloj.component';
+import { RelojService } from '../services/reloj/reloj.service';
+
 
 
 @NgModule({
@@ -30,12 +33,18 @@ import { EmpleadoComponent } from './empleados/empleados/empleado.component';
     SedeComponent,
     MapComponent,
     EmpleadosComponent,
-    EmpleadoComponent
+    EmpleadoComponent,
+    RelojComponent
+    
+  ],
+  providers:[
+    RelojService
   ],
   exports:[
     DashboardComponent
   ],
   imports: [
+    
     CommonModule,
     LeafletModule,
     SharedModule,
