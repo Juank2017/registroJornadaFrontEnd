@@ -18,6 +18,10 @@ import { EmpleadosComponent } from './empleados/empleados/empleados.component';
 import { EmpleadoComponent } from './empleados/empleados/empleado.component';
 import { RelojComponent } from '../components/reloj/reloj.component';
 import { RelojService } from '../services/reloj/reloj.service';
+import { MarcajesComponent } from './marcajes/marcajes.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { NotificacionComponent } from './notificaciones/notificacion.component';
+import { InformesComponent } from './informes/informes.component';
 
 
 
@@ -34,7 +38,11 @@ import { RelojService } from '../services/reloj/reloj.service';
     MapComponent,
     EmpleadosComponent,
     EmpleadoComponent,
-    RelojComponent
+    RelojComponent,
+    MarcajesComponent,
+    NotificacionesComponent,
+    NotificacionComponent,
+    InformesComponent
     
   ],
   providers:[

@@ -1,8 +1,7 @@
 import {
   Component,
-  OnInit,
-  AfterViewInit,
-  AfterViewChecked,
+  OnInit
+
 } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
 import { Turno } from 'src/app/models/turno.model';
@@ -21,7 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 
-declare function iniciaTimepicker();
+
 
 @Component({
   selector: 'app-empleado',

@@ -36,11 +36,12 @@ export class MarcadoService {
 
   marcadosEmpleado(id: string, fecha: string) {
     const url =
-      URL_SERVICIOS + 'marcados/empleado/' + id + '?token=' + this.token;
+      URL_SERVICIOS + 'marcados/empleado/' + id + '?token=' + this.token + '&pagina=-1';
     const marcados: Marcado[] = [];
     return this._http.get(url).pipe(
       map((resp: any) => {
-        resp.forEach((element) => {
+       
+        resp.marcados.forEach((element) => {
           if (element.fecha === fecha && element.horaFinal === '00:00:00') {
             marcados.push(element);
           }

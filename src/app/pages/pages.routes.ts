@@ -10,6 +10,10 @@ import { AdminGuard } from '../services/guards/admin.guard';
 import { SedeComponent } from './sedes/sede.component';
 import { EmpleadosComponent } from './empleados/empleados/empleados.component';
 import { EmpleadoComponent } from './empleados/empleados/empleado.component';
+import { MarcajesComponent } from './marcajes/marcajes.component';
+import { NotificacionComponent } from './notificaciones/notificacion.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { InformesComponent } from './informes/informes.component';
 
 
 
@@ -26,6 +30,10 @@ const pagesRoutes: Routes = [
             { path: 'empleados', component: EmpleadosComponent, canActivate: [ AdminGuard], data: {titulo: 'Empleados'}},
             { path: 'empleado/:id', component: EmpleadoComponent, canActivate: [AdminGuard], data: {titulo: 'Manteminiemto de Empleado'}},
             { path: 'marcado', component: MarcadoComponent, data: {titulo: 'Marcado'}},
+            { path: 'marcajes', component: MarcajesComponent, data: {titulo: 'Mis marcajes'}},
+            { path: 'notificacion/:id', component: NotificacionComponent, data: {titulo: 'Notificacion'}},
+            { path: 'notificaciones', component: NotificacionesComponent, data: {titulo: 'Mis notificaciones'}},
+            { path: 'informes', component: InformesComponent, data: {titulo: 'Informes'}},
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
         ]
     }

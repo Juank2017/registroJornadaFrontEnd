@@ -45,6 +45,7 @@ export class MarcadoComponent implements OnInit {
       (resp: any) => {
         console.log(resp.empleado);
         this.idEmpleado = resp.empleado.idEmpleado;
+        localStorage.setItem('idEmpleado', this.idEmpleado);
       },
       (err: any) => this._errorService.mostrarMensajeError(err.message),
       () => {
@@ -68,18 +69,7 @@ export class MarcadoComponent implements OnInit {
       }
     );
 
-    // if (localStorage.getItem('marcado')) {
-    //   // carga el marcado
-    //   this.hayMarcado = true;
-    //   this.marcadoActual = JSON.parse(localStorage.getItem('marcado'));
-    //   console.log(this.marcadoActual);
-    //   if (localStorage.getItem('pausa')) {
-    //     this.pausa = JSON.parse(localStorage.getItem('pausa'));
-    //     this.hayPausa = true;
-    //   }
-    // } else {
-    //   this.hayMarcado = false;
-    // }
+
   }
   compruebaMarcados(resp: any) {
     console.log(resp.length);

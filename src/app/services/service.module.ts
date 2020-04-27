@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { LoginGuard } from './guards/login.guard';
+import { AdminGuard } from './guards/admin.guard';
+
 import { SharedService } from './service.index';
 import { UsuarioService } from './service.index';
-import { HttpClientModule } from '@angular/common/http';
-import { LoginGuard } from './guards/login.guard';
 import { NavbarService } from './service.index';
-import { RouterModule } from '@angular/router';
 import { EmpresasService } from './service.index';
 import { SedesService } from './service.index';
-import { AdminGuard } from './guards/admin.guard';
 import { MapService } from './service.index';
 import { EmpleadosService } from './service.index';
 import { ErrorService } from './service.index';
 import { RelojService } from './service.index';
+import { MarcajesService } from './service.index';
+import { NotificacionesService } from './service.index';
 
 
 
@@ -34,7 +37,10 @@ import { RelojService } from './service.index';
     MapService,
     EmpleadosService,
     ErrorService,
-    RelojService
+    RelojService,
+    MarcajesService,
+    NotificacionesService
+  
   ]
 })
 export class ServiceModule { }

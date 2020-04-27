@@ -1,3 +1,5 @@
+export { NotificacionesService } from './notificaciones/notificaciones.service';
+export { MarcajesService } from './marcajes/marcajes.service';
 export { RelojService } from './reloj/reloj.service';
 export { HorarioService } from './horario/horario.service';
 export { ErrorService } from './errors/error.service';

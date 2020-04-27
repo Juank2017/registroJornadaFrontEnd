@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Listado de marcados</h4>
+  
+          <h6 class="card-subtitle" *ngIf="paginacion" >
+            Total de registros: {{ paginacion.registros }}
+          </h6>
+          <div class="row justify-content-end">
+            <div class="col-md-4">
+             
+              <select (change)= "filtrarSede($event.target.value)" class="form-control" name="empresa">
+                  <option value="">Selecciona sede</option>
+                  <option *ngFor="let sede of sedes" value= "{{sede.id}}">{{sede.nombre}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+             
+                <select (change)= "filtrarEmpleado($event.target.value)" class="form-control" name="empresa">
+                    <option value="">Selecciona empleado</option>
+                    <option *ngFor="let empleado of empleados" value= "{{empleado.id}}">{{empleado.nombre}} {{empleado.apellidos}}</option>
+                  </select>
+              </div>
+        </div>
+
+          <div class="table-responsive">
+            <table
+              id="demo-foo-addrow"
+              class="table m-t-10 full-color-table full-info-table hover-table"
+              data-page-size="10"
+            >
+              <thead>
+                <tr>
+                  <th >Id</th>
+                  <th >Fecha</th>
+                  <th >Inicio</th>
+                  <th >Fin</th>
+                  <th >Tipo</th>
+           
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let marcado of marcajes">
+                  <td>{{ marcado.id }}</td>
+                  <td>{{ marcado.fecha | date:"dd/MM/yyyy" }}</td>
+                  <td>{{ marcado.horaInicio }}</td>
+                  <td>{{ marcado.horaFinal }}</td>
+                  <td>{{ marcado.tipo_marcaje.tipo_marcaje}}</td>
+                  
+  
+
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-end no-gutters">
+ 
+            </div>
+            <div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-sm justify-content-end">
+                  <li class="page-item">
+                    <a
+                      (click)="cambiarPagina(-1)"
+                      class="page-link"
+                      >Anterior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      (click)="cambiarPagina(1)"
+                      class="page-link"
+                      >Siguiente</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

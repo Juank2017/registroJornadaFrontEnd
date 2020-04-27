@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Notificación</h4>
+
+        <h6 class="card-subtitle"></h6>
+        <div class="">
+          <div class="container">
+              <div class="row justify-content-center ">
+                  <div class="col-md-10">
+                    <form 
+                    #f="ngForm"
+                    ngNativeValidate
+                    (ngSubmit)="procesar(f)"
+                    class="m-t-40"
+                  >
+                    <div class="form-row">
+                      <div class="form-group m-b-40 col-md-3" >
+                        <label for="id">ID </label>
+                        <input
+                          [(ngModel)]= "notificacion.id"
+                          class="form-control form-control-sm"
+                          name="id"
+                          readonly
+                        />
+                      </div>
+                      <div class="form-group m-b-40 col-md-5">
+                        <label for="idUsuario">Fecha</label>
+                        <input
+                          [(ngModel)]= "notificacion.fecha"
+                          class="form-control form-control-sm"
+                          name="fecha"
+                          readonly
+                        />
+                       
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="form-group m-b-40 col-md-12">
+                        <label for="">Texto:</label>
+                        
+                        <textarea
+                          [(ngModel)]= "notificacion.texto_notificacion"
+                         
+                          class="form-control form-control-sm"
+                          name="texto_notificacion"
+                        >{{ notificacion.texto_notificacion}}</textarea>
+                      </div>
+                      <div class="form-group m-b-40 col-md-12">
+                        <label for="password">Respuesta</label>
+                        <textarea
+                        [(ngModel)]= "notificacion.texto_respuesta"
+                       
+                        class="form-control form-control-sm"
+                        name="texto_respuesta"
+                      >{{notificacion.texto_respuesta}}</textarea>
+                      </div>
+      
+                    </div>
+         
+                    <input name="loginEmisor" hidden [(ngModel)] = "notificacion.loginEmisor" />
+                    <div class="row justify-content-end no-gutters">
+                      <div>
+                        <button
+                          [routerLink]="['/notificaciones']"
+                          type="button"
+                          class="mb-2 btn btn-secondary mr-2"
+                        >
+                          Volver
+                        </button>
+                        <button [disabled] = "notificacion.texto_respuesta === ''" type="submit" class="mb-2 btn btn-info mr-2">
+                          Guardar
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
