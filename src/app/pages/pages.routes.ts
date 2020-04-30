@@ -32,7 +32,7 @@ const pagesRoutes: Routes = [
             { path: 'marcado', component: MarcadoComponent, data: {titulo: 'Marcado'}},
             { path: 'marcajes', component: MarcajesComponent, data: {titulo: 'Mis marcajes'}},
             { path: 'notificacion/:id', component: NotificacionComponent, data: {titulo: 'Notificacion'}},
-            { path: 'notificaciones', component: NotificacionesComponent, data: {titulo: 'Mis notificaciones'}},
+            { path: 'notificaciones/:tipo', component: NotificacionesComponent, data: {titulo: 'Mis notificaciones'}},
             { path: 'informes', component: InformesComponent, data: {titulo: 'Informes'}},
             { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
         ]

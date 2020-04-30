@@ -16,6 +16,7 @@ import { ErrorService } from './service.index';
 import { RelojService } from './service.index';
 import { MarcajesService } from './service.index';
 import { NotificacionesService } from './service.index';
+import { InformesService } from './informes/informes.service';
 
 
 
@@ -39,7 +40,8 @@ import { NotificacionesService } from './service.index';
     ErrorService,
     RelojService,
     MarcajesService,
-    NotificacionesService
+    NotificacionesService,
+    InformesService
   
   ]
 })

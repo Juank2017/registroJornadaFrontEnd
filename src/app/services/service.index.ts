@@ -1,3 +1,4 @@
+export { InformesService } from './informes/informes.service';
 export { NotificacionesService } from './notificaciones/notificaciones.service';
 export { MarcajesService } from './marcajes/marcajes.service';
 export { RelojService } from './reloj/reloj.service';

@@ -1,3 +1,4 @@
+import { Empleado } from './empleado.model';
 export class Notificacion{
     constructor(
         public id: string,
@@ -5,7 +6,7 @@ export class Notificacion{
         public texto_notificacion: string,
         public texto_respuesta: string,
         public leida: string,
-        public idEMPLEADO: string,
+        public empleado: Empleado,
         public loginEmisor: string
     ){
 

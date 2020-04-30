@@ -41,7 +41,7 @@
                       <div class="form-group m-b-40 col-md-12">
                         <label for="">Texto:</label>
                         
-                        <textarea
+                        <textarea [disabled] = !this.esNuevo (keyup)= "autoGrowTextZone($event)"
                           [(ngModel)]= "notificacion.texto_notificacion"
                          
                           class="form-control form-control-sm"
@@ -50,7 +50,7 @@
                       </div>
                       <div class="form-group m-b-40 col-md-12">
                         <label for="password">Respuesta</label>
-                        <textarea
+                        <textarea [disabled] = this.esNuevo (keyup)= "autoGrowTextZone($event)"
                         [(ngModel)]= "notificacion.texto_respuesta"
                        
                         class="form-control form-control-sm"
@@ -63,14 +63,14 @@
                     <input name="loginEmisor" hidden [(ngModel)] = "notificacion.loginEmisor" />
                     <div class="row justify-content-end no-gutters">
                       <div>
-                        <button
-                          [routerLink]="['/notificaciones']"
+                        <button (click) = "volver()"
+                         
                           type="button"
                           class="mb-2 btn btn-secondary mr-2"
                         >
                           Volver
                         </button>
-                        <button [disabled] = "notificacion.texto_respuesta === ''" type="submit" class="mb-2 btn btn-info mr-2">
+                        <button [disabled] = "notificacion.texto_respuesta === '' " type="submit" class="mb-2 btn btn-info mr-2">
                           Guardar
                         </button>
                       </div>

@@ -2,7 +2,13 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Listado de empleados</h4>
+         
+          <h4 class="card-title" *ngIf= "tipo === 'recibidas'; else enviadas">Norificaciones recibidas  </h4>
+
+          <ng-template #enviadas>
+           <h4>Notificaciones enviadas</h4>
+
+          </ng-template>
   
           <h6 class="card-subtitle" *ngIf="paginacion" >
             Total de registros: {{ paginacion.registros }}
@@ -22,19 +28,28 @@
               <thead>
                 <tr>
                   <th >Id</th>
-                  <th>Emisor</th>
+                  <th *ngIf= "tipo === 'recibidas'; else esManager2">Emisor</th>
+                  <ng-template #esManager2>
+                    <th>Empleado</th>
+                  </ng-template>
                   <th >Fecha</th>
                   <th >Texto</th>
                   <th >Respuesta</th>
                   <th class="text-center" >Leida</th>
                   <th></th>
+                  <th *ngIf= "esManager"></th>
                 </tr>
               </thead>
               <tbody>
                   
                 <tr *ngFor="let notificacion of notificaciones">
                   <td>{{ notificacion.id }}  </td>
-                  <td>{{ notificacion.loginEmisor}}  </td>
+                  <td  *ngIf= "tipo === 'recibidas'; else esManager1">{{ notificacion.loginEmisor}}  </td>
+
+                  <ng-template #esManager1>
+                    <td>{{ notificacion.empleado.nombre}} {{ notificacion.empleado.apellidos}}  </td>
+
+                  </ng-template>
                   <td>{{ notificacion.fecha | date:"dd/MM/yyyy"}}</td>
                   <td>{{ notificacion.texto_notificacion }}</td>
                   <td>{{ notificacion.texto_respuesta }} </td>
@@ -49,13 +64,16 @@
                   
               
                   <td class="text-center" *ngIf= "notificacion.leida == '0'; else botonRespuesta" >
-                    <button [routerLink]= "['/notificacion', notificacion.id]"  class="btn btn-info btn-sm mr-2" [disabled]= "notificacion.leida === '1'" ><i class="far fa-paper-plane" ></i></button>
+                    <button (click) = "responder(notificacion.id)"   class="btn btn-info btn-sm mr-2" [disabled]= "notificacion.leida === '1'" ><i class="far fa-paper-plane" ></i></button>
                   </td>
                   <ng-template #botonRespuesta>
                     <td class="text-center" >
                       
                     </td> 
                   </ng-template>
+                  <td class="text-center" *ngIf = "esManager === 'MANAGER'" >
+                    <button (click) = "borrar(notificacion.id)"   class="btn btn-danger btn-sm mr-2" ><i class="fas fa-trash"></i></button>
+                  </td>
                 </tr>
               </tbody>
             </table>
