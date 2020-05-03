@@ -8,6 +8,10 @@ export class ErrorService {
 
   constructor() { }
 
+  /**
+   * Muestra un alert con el mensaje de error
+   * @param mensaje 
+   */
   mostrarMensajeError(mensaje: string){
    
     swal({

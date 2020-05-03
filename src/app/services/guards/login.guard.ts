@@ -3,6 +3,9 @@ import { CanActivate } from '@angular/router';
 import { UsuarioService } from '../usuario/usuario.service';
 import { Router } from '@angular/router';
 
+/**
+ * Evita que un usuario sin logar entre en la app
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -50,7 +50,7 @@ export class MapService {
 
     return this.http.get(url).pipe(
       map((resp: any) => {
-        console.log(resp.features[0].geometry.coordinates);
+       
         if (resp.features.length === 0) {
           swal({
             title: 'Error',
@@ -78,13 +78,7 @@ export class MapService {
         this.longitude = position.coords.longitude;
         this.zoom = 15;},
         (err) => {
-          console.log(err);
-          // swal({
-          //   title: 'error',
-          //   text: 'No se ha podido geolocalizar, contacte con soporte para solucionarlo. Se va a registrar el marcado sin geolocalizar.',
-          //   icon: 'warning',
-          //   dangerMode: true,
-          // });
+      
           return false;
         });
     }

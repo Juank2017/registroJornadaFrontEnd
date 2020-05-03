@@ -4,14 +4,15 @@ import { Empresa } from 'src/app/models/empresa.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import swal from 'sweetalert';
-
+/**
+ * Componente para listar y crear empresas
+ */
 @Component({
   selector: 'app-empresas',
   templateUrl: './empresas.component.html',
   styles: [],
 })
 export class EmpresasComponent implements OnInit {
-
   formulario: FormGroup;
 
   idFilaEditar: any;
@@ -19,50 +20,54 @@ export class EmpresasComponent implements OnInit {
   paginacion: any;
   empresas: Empresa[] = [];
   empresa: Empresa;
- 
+
   paginaActual: number = 1;
   paginasTotales: number;
-
-  clasePaginacionAnterior: string =
-    this.paginaActual < 1 ? 'page-link' : 'page-link disabled';
-  clasePaginacionSiguiente: string =
-    this.paginaActual > this.paginasTotales
-      ? 'page-link'
-      : 'page-link disabled';
 
   constructor(public _empresasService: EmpresasService) {
     this.obtenerEmpresas();
   }
-  crearEmpresa(){
-    console.log(this.formulario.value);
-    const  empresaNueva: Empresa = new Empresa(null, this.formulario.value.nombre, this.formulario.value.cif);
-   
+  /**
+   * Llama al servicio para crear la empresa
+   */
+  crearEmpresa() {
+    
+    const empresaNueva: Empresa = new Empresa(
+      null,
+      this.formulario.value.nombre,
+      this.formulario.value.cif
+    );
 
-    this._empresasService.createEmpresa(empresaNueva)
-      .subscribe((resp: any) => {
-        this.obtenerEmpresas();
-        console.log(resp);
-        swal({
-          title: 'Empresa creada',
-          text: 'Se ha creado la empresa  ' + resp.nombre + ' correctamente.',
-          icon: 'success',
-        });
+    this._empresasService.createEmpresa(empresaNueva).subscribe((resp: any) => {
+      this.obtenerEmpresas();
+      console.log(resp);
+      swal({
+        title: 'Empresa creada',
+        text: 'Se ha creado la empresa  ' + resp.nombre + ' correctamente.',
+        icon: 'success',
       });
-
+    });
   }
+  /**
+   * Obtiene el listado de empresas
+   */
   obtenerEmpresas() {
     this._empresasService
       .getEmpresas(this.paginaActual)
       .subscribe((resp: any) => {
-        console.log(resp);
+        
         this.empresas = resp.empresas;
         this.paginacion = resp.paginacion;
         this.paginasTotales = resp.paginacion.paginas;
-        console.log(this.empresas);
-        this.editar=false;
+        this.editar = false;
       });
   }
 
+  /**
+   * función para cambiar el número de página actual para la paginación
+   * responde al evento click asociado a los enlaces siguiente y anterior en el html
+   * @param valor 
+   */
   cambiarPagina(valor: number) {
     let desde = this.paginaActual + valor;
     if (desde >= this.paginasTotales) {
@@ -74,14 +79,23 @@ export class EmpresasComponent implements OnInit {
     return desde;
   }
 
+  /**
+   * Actualiza los cambios de una empresa
+   * @param empresa 
+   */
   guardarCambios(empresa: Empresa) {
-    console.log(empresa);
+    
     this._empresasService
       .updateEmpresa(empresa)
       .subscribe((resp) => console.log(resp));
     this.obtenerEmpresas();
   }
 
+  /**
+   * Función para activar la edición de una línea de la tabla
+   * asociada al evento click del botón editar
+   * @param id 
+   */
   editarFila(id: any) {
     if (this.editar) {
       this.editar = false;
@@ -91,34 +105,37 @@ export class EmpresasComponent implements OnInit {
       this.editar = true;
     }
 
-    console.log(this.idFilaEditar);
+    
   }
-
-  eliminarEmpresa(empresa: Empresa){
+ /**
+  * Elimina una empresa
+  * @param empresa 
+  */
+  eliminarEmpresa(empresa: Empresa) {
     swal({
       title: '¿Está seguro?',
-      text: 'Está a punto de eliminar la empresa '+ empresa.nombre,
+      text: 'Está a punto de eliminar la empresa ' + empresa.nombre,
       icon: 'warning',
       buttons: ['Cancelar', 'Aceptar'],
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-        this._empresasService.deleteEmpresa(empresa)
-          .subscribe( borrado =>{
-            this.obtenerEmpresas();
-          });
-        }
-
+        this._empresasService.deleteEmpresa(empresa).subscribe((borrado) => {
+          this.obtenerEmpresas();
+        });
+      }
     });
 
-    this._empresasService.deleteEmpresa(empresa)
+    
   }
 
+  /**
+   * Al iniciar el componente se crea el formulario.
+   */
   ngOnInit(): void {
     this.formulario = new FormGroup({
       nombre: new FormControl(null, Validators.required),
-      cif: new FormControl(null, Validators.required)
+      cif: new FormControl(null, Validators.required),
     });
   }
 }

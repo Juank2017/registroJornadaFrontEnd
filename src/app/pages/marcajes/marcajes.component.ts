@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Marcado } from '../../models/marcado.model';
-import { MarcajesService } from '../../services/marcajes/marcajes.service';
 
+import { MarcajesService } from '../../services/marcajes/marcajes.service';
+/**
+ * Componente para listar los marcajes.
+ */
 @Component({
   selector: 'app-marcajes',
   templateUrl: './marcajes.component.html',
@@ -9,19 +11,23 @@ import { MarcajesService } from '../../services/marcajes/marcajes.service';
 })
 export class MarcajesComponent implements OnInit {
   paginacion: any;
- 
 
   paginaActual = 1;
   paginasTotales: number;
- 
-  marcajes: any[] = [];
-  idEmpleado = localStorage.getItem('idEmpleado') ? localStorage.getItem('idEmpleado') : '';
-  constructor(public _marcajesService: MarcajesService) { }
 
+  marcajes: any[] = [];
+  idEmpleado = localStorage.getItem('idEmpleado')
+    ? localStorage.getItem('idEmpleado')
+    : '';
+  constructor(public _marcajesService: MarcajesService) {}
+
+  /**
+   * Al iniciar obtenemos los marcados
+   */
   ngOnInit(): void {
-   this.obtenerMarcados();
+    this.obtenerMarcados();
   }
-/**
+  /**
    * acción de los botones siguiente y anterior
    * @param valor
    */
@@ -35,17 +41,16 @@ export class MarcajesComponent implements OnInit {
     this.paginaActual = this.paginaActual + valor;
     this.obtenerMarcados();
   }
-
-obtenerMarcados(){
-  console.log(this.paginaActual,this.paginasTotales);
-  this._marcajesService.obtenerMarcajes(this.idEmpleado, this.paginaActual.toString())
-  .subscribe( (resp: any) =>{
-    console.log(resp);
-    this.marcajes = resp.marcados;
-    this.paginacion = resp.paginacion;
-    this.paginasTotales = resp.paginacion.paginas;
-    console.log(this.marcajes);
-  });
-}
-
+  /**
+   * Obtiene los marcados llamando al servicio.
+   */
+  obtenerMarcados() {
+    this._marcajesService
+      .obtenerMarcajes(this.idEmpleado, this.paginaActual.toString())
+      .subscribe((resp: any) => {
+        this.marcajes = resp.marcados;
+        this.paginacion = resp.paginacion;
+        this.paginasTotales = resp.paginacion.paginas;
+      });
+  }
 }

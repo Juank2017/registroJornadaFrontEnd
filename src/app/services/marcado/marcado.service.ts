@@ -15,6 +15,10 @@ export class MarcadoService {
 
   constructor(public _http: HttpClient) {}
 
+  /**
+   * Crea un marcado
+   * @param marcado 
+   */
   crearMarcado(marcado: Marcado) {
     const url = URL_SERVICIOS + 'marcados/create?token=' + this.token;
 

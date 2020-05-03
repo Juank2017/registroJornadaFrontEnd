@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-
+/**
+ * getiona la ruta que se muestar en los breadcrumbs
+ */
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',

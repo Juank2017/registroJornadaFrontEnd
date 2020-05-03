@@ -9,11 +9,14 @@ import swal from 'sweetalert';
   providedIn: 'root',
 })
 export class EmpresasService {
- // pagina: string = '1';
   token: string = localStorage.getItem('token');
   constructor(public _http: HttpClient) {}
 
-  getEmpresas(pagina: number ) {
+  /**
+   * Obtiene las empresas
+   * @param pagina
+   */
+  getEmpresas(pagina: number) {
     let url = URL_SERVICIOS + 'empresas';
 
     const params = new HttpParams()
@@ -22,26 +25,38 @@ export class EmpresasService {
 
     return this._http.get(url, { params });
   }
-
-  createEmpresa(empresa: Empresa){
+  /**
+   * Crea una empresa
+   * @param empresa
+   */
+  createEmpresa(empresa: Empresa) {
     let url = URL_SERVICIOS + 'empresas/create?token=' + this.token;
     return this._http.post(url, empresa);
   }
-  updateEmpresa(empresa: Empresa){
+  /**
+   * Actualiza una empresa
+   * @param empresa
+   */
+  updateEmpresa(empresa: Empresa) {
     let url = URL_SERVICIOS + 'empresas/update?token=' + this.token;
 
     return this._http.put(url, empresa);
   }
-  deleteEmpresa(empresa: Empresa){
-    const url = URL_SERVICIOS + 'empresas/delete/' + empresa.id + '?token=' + this.token;
+  /**
+   * Borra una empresa
+   * @param empresa
+   */
+  deleteEmpresa(empresa: Empresa) {
+    const url =
+      URL_SERVICIOS + 'empresas/delete/' + empresa.id + '?token=' + this.token;
 
-    return this._http.delete(url)
-      .pipe(
-        map( (resp: any) => {
-          swal('La empresa se ha eliminado', {
-            icon: 'success',
-          });
-          return true;
-        }));
+    return this._http.delete(url).pipe(
+      map((resp: any) => {
+        swal('La empresa se ha eliminado', {
+          icon: 'success',
+        });
+        return true;
+      })
+    );
   }
 }

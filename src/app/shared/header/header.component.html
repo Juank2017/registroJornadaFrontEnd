@@ -1,100 +1,173 @@
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- ============================================================== -->
-                <!-- Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
-                        <!-- Logo icon --><b>
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo icon -->
-                            <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text --><span>
-                         <!-- dark Logo text -->
-                         <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                         <!-- Light Logo text -->    
-                         <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav mr-auto">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                        <li class="nav-item hidden-sm-down"></li>
-                    </ul>
-                    <ul class="navbar-nav my-lg-0" >
-                       
-                 
-                        <li class="nav-item dropdown" *ngIf='this._navbarService.admin'>
-                            <a class="nav-link dropdown-toggle " href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-user-tie"></i>
-                                Administración
-                            </a>
-                            <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
-                                <ul>
+<!-- ============================================================== -->
+<!-- Topbar header - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<header class="topbar">
+  <nav class="navbar top-navbar navbar-expand-md navbar-light">
+    <!-- ============================================================== -->
+    <!-- Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/dashboard">
+        <!-- Logo icon --><b>
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <img
+            src="assets/images/logo-icon.png"
+            alt="homepage"
+            class="dark-logo"
+          />
+          <!-- Light Logo icon -->
+          <img
+            src="assets/images/logo-light-icon.png"
+            alt="homepage"
+            class="light-logo"
+          />
+        </b>
+      </a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-collapse">
+      <!-- ============================================================== -->
+      <!-- toggle and nav items -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav my-lg-0">
+        <li class="nav-item dropdown" *ngIf="this._navbarService.admin">
+          <a
+            class="nav-link dropdown-toggle"
+            href=""
+            id="2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-tie"></i>
+            Administración
+          </a>
+          <div
+            class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown"
+            aria-labelledby="2"
+          >
+            <ul>
+              <li>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/empresas"
+                >
+                  <strong>Empresas</strong>
+                </a>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/sedes"
+                >
+                  <strong>Sedes</strong>
+                </a>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/empleados"
+                >
+                  <strong>Empleados</strong>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item dropdown" *ngIf="this._navbarService.user">
+          <a
+            class="nav-link dropdown-toggle"
+            href=""
+            id="2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-clock"></i>
+            Marcado
+          </a>
+          <div
+            class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown"
+            aria-labelledby="2"
+          >
+            <ul>
+              <li>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/marcado"
+                >
+                  <strong>Marcado</strong>
+                </a>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/marcajes"
+                >
+                  <strong>Mis marcajes</strong>
+                </a>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/notificaciones/recibidas"
+                >
+                  <strong>Notificaciones</strong>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item dropdown" *ngIf="this._navbarService.manager">
+          <a
+            class="nav-link dropdown-toggle"
+            href=""
+            id="2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-cog"></i>
+            Manager
+          </a>
+          <div
+            class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown"
+            aria-labelledby="2"
+          >
+            <ul>
+              <li>
+                <a
+                  class="nav-link text-center"
+                  routerLinkActive="active"
+                  routerLink="/informes"
+                >
+                  <strong>Informes marcado</strong>
+                </a>
 
-                        
-                                    <li>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/empresas"> <strong>Empresas</strong>  </a>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/sedes"> <strong>Sedes</strong>  </a>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/empleados"> <strong>Empleados</strong>  </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown" *ngIf='this._navbarService.user'>
-                            <a class="nav-link dropdown-toggle " href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-user-clock"></i>
-                                Marcado
-                            </a>
-                            <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
-                                <ul>
-
-                        
-                                    <li>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/marcado"> <strong>Marcado</strong>  </a>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/marcajes"> <strong>Mis marcajes</strong>  </a>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/notificaciones/recibidas"> <strong>Notificaciones</strong>  </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown"*ngIf='this._navbarService.manager'>
-                            <a class="nav-link dropdown-toggle " href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-user-cog"></i>
-                                Manager
-                            </a>
-                            <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
-                                <ul>
-
-                        
-                                    <li>
-                                        <a class="nav-link text-center" routerLinkActive="active" routerLink="/informes"> <strong>Informes marcado</strong>  </a>
-                                     
-                                        <a class="nav-link text-center" routerLink="/notificaciones/enviadas"> <strong>Notificaciones</strong>  </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown ">
-                            <a (click)="_usuarioService.logout()" class="nav-link text-center pointer"><i class="fa fa-power-off "></i> Logout</a>
-                        </li>
-                        <li></li>
-                    </ul>
-
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
+                <a
+                  class="nav-link text-center"
+                  routerLink="/notificaciones/enviadas"
+                >
+                  <strong>Notificaciones</strong>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            (click)="_usuarioService.logout()"
+            class="nav-link text-center pointer"
+            ><i class="fa fa-power-off"></i> Logout</a
+          >
+        </li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- ============================================================== -->
+<!-- End Topbar header -->
+<!-- ============================================================== -->

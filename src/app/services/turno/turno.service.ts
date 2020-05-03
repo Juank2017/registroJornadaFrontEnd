@@ -10,7 +10,9 @@ export class TurnoService {
   token = localStorage.getItem('token');
   constructor(public _http: HttpClient) { }
 
-
+/**
+ * Obtiene los turnos
+ */
   obtenerTurnos(){
 
     const url = URL_SERVICIOS + 'turnos?token=' + this.token;

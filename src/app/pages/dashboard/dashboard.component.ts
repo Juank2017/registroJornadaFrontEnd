@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   usuario: any = localStorage.getItem('usuario');
   
   constructor(public router: Router) {
-
+console.log(this.usuario);
     if (this.usuario.indexOf('ADMIN_ROL') === -1){
       this.router.navigate(['/marcado']);
     }else{

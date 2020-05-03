@@ -7,25 +7,12 @@ import { MapService } from '../../services/map/map.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class MapComponent implements OnInit {
+  @Input() direccion: string;
 
+  constructor(public _mapService: MapService) {}
 
-@Input() direccion: string;
-
-  constructor(public _mapService: MapService) {
-
-    console.log(this.direccion);
-
-     }
-
-
-
-
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 }

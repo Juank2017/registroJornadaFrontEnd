@@ -8,11 +8,8 @@
           Total de registros: {{ paginacion.registros }}
         </h6>
         <div class="table-responsive">
-          <table
-            id="demo-foo-addrow"
-            class="table m-t-10 full-color-table full-info-table hover-table"
-            data-page-size="10"
-          >
+          <!-- Tabla  -->
+          <table class="table m-t-10 full-color-table full-info-table hover-table">
             <thead>
               <tr>
                 <th class="text-center">Id</th>
@@ -24,46 +21,20 @@
             <tbody>
               <tr *ngFor="let empresa of empresas">
                 <td>{{ empresa.id }}</td>
-                <td *ngIf="!editar || idFilaEditar !== empresa.id">
-                  {{ empresa.nombre }}
-                </td>
+                <!-- la celda del nombre y el cif cambian de texto a ser un input cuando se pulsa el botón editar. -->
+                <td *ngIf="!editar || idFilaEditar !== empresa.id">{{ empresa.nombre }}</td>
                 <td *ngIf="editar && idFilaEditar === empresa.id">
-                  <input
-                    [(ngModel)]="empresa.nombre"
-                    class="form-control-plaintext form-control-sm"
-                    type="text"
-                    name="nombre"
-                    value="{{ empresa.nombre }}"
-                  />
+                  <input [(ngModel)]="empresa.nombre" class="form-control-plaintext form-control-sm" type="text" name="nombre" value="{{ empresa.nombre }}"/>
                 </td>
-                <td *ngIf="!editar || idFilaEditar !== empresa.id">
-                  {{ empresa.cif }}
-                </td>
+                <td *ngIf="!editar || idFilaEditar !== empresa.id">{{ empresa.cif }}</td>
                 <td *ngIf="editar && idFilaEditar === empresa.id">
-                  <input
-                    [(ngModel)]="empresa.cif"
-                    class="form-control-plaintext form-control-sm"
-                    type="text"
-                    name="cif"
-                    value="{{ empresa.cif }}"
-                  />
+                  <input [(ngModel)]="empresa.cif" class="form-control-plaintext form-control-sm" type="text" name="cif" value="{{ empresa.cif }}"/>
                 </td>
                 <td class="text-center">
-                  <button
-                    (click)="editarFila(empresa.id)"
-                    class="btn btn-info btn-sm mr-2"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button
-                    (click)="guardarCambios(empresa)"
-                    class="btn btn-info btn-sm mr-2"
-                  >
-                    <i class="far fa-save"></i>
-                  </button>
-                  <button (click)="eliminarEmpresa(empresa)" class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash"></i>
-                  </button>
+                  
+                  <button (click)="editarFila(empresa.id)" class="btn btn-info btn-sm mr-2"><i class="fas fa-edit"></i></button>
+                  <button (click)="guardarCambios(empresa)" class="btn btn-info btn-sm mr-2"><i class="far fa-save"></i></button>
+                  <button (click)="eliminarEmpresa(empresa)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -73,26 +44,18 @@
                 <form ngNativeValidate (ngSubmit)="crearEmpresa()" class="form-inline floating-labels" [formGroup]="formulario" >
                   <input formControlName="nombre" class="form-control form-control-sm mb-2 mr-sm-2" placeholder="Nombre" type="text"  name="nombre" required>
                   <input formControlName="cif" class="form-control form-control-sm mb-2 mr-sm-2" placeholder="CIF" type="text"  name="cif" required>
-
                   <button type="submit" class="mb-2 btn btn-primary btn-sm">Nueva Empresa</button>
                 </form>
-     
-             
             </div>
           </div>
           <div>
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-sm justify-content-end">
                 <li class="page-item">
-                  <a (click)="cambiarPagina(-1)"
-                     [class]="clasePaginacionAnterior">Anterior</a>
+                  <a (click)="cambiarPagina(-1)" class="page-link">Anterior</a>
                 </li>
                 <li>
-                  <a
-                    (click)="cambiarPagina(1)"
-                    [class]="clasePaginacionSiguiente"
-                    >Siguiente</a
-                  >
+                  <a (click)="cambiarPagina(1)"  class="page-link">Siguiente</a>
                 </li>
               </ul>
             </nav>

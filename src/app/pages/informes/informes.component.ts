@@ -4,15 +4,18 @@ import { SedesService } from '../../services/sedes/sedes.service';
 import { EmpleadosService } from '../../services/empleados/empleados.service';
 import { MarcajesService } from '../../services/marcajes/marcajes.service';
 import { Sede } from '../../models/sede.model';
-import { Marcado } from '../../models/marcado.model';
+
 import { Empleado } from '../../models/empleado.model';
 import { NotificacionesService } from '../../services/notificaciones/notificaciones.service';
 import { Router } from '@angular/router';
-import { InformesService } from '../../services/informes/informes.service';
+
 import pdfMake from '../../../../node_modules/pdfmake/build/pdfmake';
 import pdfFonts from '../../../../node_modules/pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+/**
+ * Componente para obtener un informe de los marcados de un empleado
+ */
 @Component({
   selector: 'app-informes',
   templateUrl: './informes.component.html',
@@ -36,68 +39,102 @@ export class InformesComponent implements OnInit {
     public _empleadosService: EmpleadosService,
     public _marcajesService: MarcajesService,
     public _notificacionesService: NotificacionesService,
-    public _informesService: InformesService,
+   
     public router: Router
   ) {}
 
+  /**
+   * Al iniciar obtenemos las sedes de la empresa para cargarlas en el select.
+   */
   ngOnInit(): void {
     this.obtenerSedes(this.idEmpresa);
   }
 
+  /**
+   * Obtiene las sedes de una empresa
+   * @param idEmpresa 
+   */
   obtenerSedes(idEmpresa: any) {
     this._sedesService.getSedeByEmpresaId(idEmpresa).subscribe((resp: any) => {
       this.sedes = resp;
     });
   }
+  /**
+   * Obtiene los empleados de una sede
+   */
   obtenerEmpleados(idSede: any) {
     let salida: Empleado[] = [];
     this._empleadosService
       .getEmpleadosEmpresa(this.idEmpresa, -1)
       .subscribe((resp: any) => {
         let empleados = resp.empleados;
-        console.log(empleados);
+        
         empleados.forEach((empleado) => {
           if (empleado.sede.id == idSede) {
             salida.push(empleado);
           }
         });
-        console.log(salida);
+        
       });
     return salida;
   }
 
+  /**
+   * Obtiene los marcados de un empleado
+   * @param idEmpleado 
+   */
   obtenerMarcados(idEmpleado: any) {
     this._marcajesService
       .obtenerMarcajes(idEmpleado, this.paginaActual.toString())
       .subscribe((resp: any) => {
         this.marcajes = resp.marcados;
-        console.log(this.marcajes);
+        
         this.paginacion = resp.paginacion;
         this.paginasTotales = resp.paginacion.paginas;
       });
   }
   cambiarPagina(pagina: any) {}
 
+  /**
+   * responde al evento change del select Sede y carga los empleados de la sede 
+   * @param event 
+   */
   filtrarSede(event) {
     console.log(event);
     this.empleados = this.obtenerEmpleados(event);
   }
+  /**
+   * Responde al evento change del select empleado y carga sus marcados.
+   * @param id 
+   */
   filtrarEmpleado(id) {
     this._notificacionesService.idEmpleadoNotificar = id;
     this.obtenerMarcados(id);
   }
+
+  /**
+   * Responde al evento click del icono notificar, redirige al componente 
+   * marcado y envía al servicio los datos del marcado para que estén disponibles en la notificación
+   * @param marcado 
+   */
   notifica(marcado: any) {
     this._notificacionesService.rutaPadre = '/informes';
     this._notificacionesService.datosMarcadoNotificar = marcado;
     this.router.navigate(['/notificacion', 'nuevo']);
   }
 
+  /**
+   * Genera un pdf de los marcados de un empleado
+   */
   generatePdf() {
  
     const documentDefinition = this.getDocumentDefinition();
     pdfMake.createPdf(documentDefinition).print();
   }
 
+  /**
+   * Maquetado del documento PDF
+   */
   getDocumentDefinition() {
     return {
       content: [

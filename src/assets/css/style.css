@@ -991,8 +991,8 @@ File: scss
     position: absolute; }
   .boxed #main-wrapper .topbar {
     max-width: 1300px; }
-  .boxed #main-wrapper .footer {
-    display: none; }
+  /* .boxed #main-wrapper .footer {
+    display: none; } */
 
 .page-wrapper {
   background: #f4f6f9;

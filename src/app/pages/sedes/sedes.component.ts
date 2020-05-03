@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Sede } from 'src/app/models/sede.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SedesService } from 'src/app/services/service.index';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../services/usuario/usuario.service';

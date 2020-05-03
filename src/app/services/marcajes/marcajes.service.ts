@@ -12,6 +12,11 @@ export class MarcajesService {
 
   constructor(public _http: HttpClient) { }
 
+  /**
+   * Obtiene marcajes
+   * @param idEmpleado 
+   * @param pagina 
+   */
   obtenerMarcajes(idEmpleado: string, pagina:string){
     const url = URL_SERVICIOS + 'marcados/empleado/' + idEmpleado + '?token=' + this.token + '&pagina=' + pagina;
 

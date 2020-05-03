@@ -10,14 +10,16 @@ import {
 } from '../../../services/service.index';
 import { EmpresasService } from '../../../services/service.index';
 import { SedesService } from '../../../services/service.index';
-
+ /**
+  * Componente para mostrar la lista de empleados
+  */
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
   styles: [],
 })
 export class EmpleadosComponent implements OnInit {
-  paginacion: any;
+  paginacion: any; // recibe los datos para la paginación
   empleados: Empleado[] = [];
 
   paginaActual = 1;
@@ -37,11 +39,10 @@ export class EmpleadosComponent implements OnInit {
       this.filtrarEmpresa(this.idEmpresaSeleccionada);
     }
 
-    //this.obtenerEmpleados();
-    console.log(this.empleados);
   }
   /**
-   * obtiene las empleados
+   * obtiene las empleados desde el servicio. Recibe la lista de empleados 
+   * y los datos para paginación, número de registros y número de páginas.
    */
   obtenerEmpleados() {
     this._empleadosService
@@ -52,10 +53,15 @@ export class EmpleadosComponent implements OnInit {
         this.paginasTotales = resp.paginacion.paginas;
       });
   }
-
+   /**
+    * Obtiene los empleados de una empresa.
+    * Recibe el id de la empresa. 
+    * @param id 
+    */
   filtrarEmpresa(id: string) {
-    console.log(id);
+    
     this.idEmpresaSeleccionada = id;
+    // actualiza la variable del servicio que tiene la empresa seleccionada para poder usar ese valor desde el componente Empleado.
     this._sedesService.empresaSeleccionada = this.idEmpresaSeleccionada;
     this._empleadosService
       .getEmpleadosEmpresa(id, this.paginaActual)
@@ -105,7 +111,9 @@ export class EmpleadosComponent implements OnInit {
 
     this._empleadosService.deleteEmpleado(empleado);
   }
-
+  /**
+   * Al inicializar el componente cargamos las empresas para ponerlas en el select del formulario.
+   */
   ngOnInit(): void {
     // cargamos las empresas para rellenar el select en el formulario
     this._empresasService.getEmpresas(-1).subscribe((resp: any) => {

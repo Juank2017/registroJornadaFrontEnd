@@ -27,15 +27,15 @@
               <div class="row">
                 <div class="form-group m-b-40 col-md-4">
                   <label for="">Login</label>
-                  <input [(ngModel)] = "empleado.usuario.login" type="email" class="form-control form-control-sm" name="login"  />
+                  <input [(ngModel)] = "empleado.usuario.login" type="email" class="form-control form-control-sm" name="login" required  />
                 </div>
                 <div class="form-group m-b-40 col-md-4">
                   <label for="password">Password</label>
-                  <input [(ngModel)] = "empleado.usuario.password" type="password" class="form-control form-control-sm" name="password"  />
+                  <input [(ngModel)] = "empleado.usuario.password" type="password" class="form-control form-control-sm" name="password" required />
                 </div>
                 <div class="form-group m-b-40 col-md-4" *ngIf="!esEmpleado">
                     <label for="rol">Rol</label>
-                    <select [(ngModel)] = "rolAdmin"  class="form-control form-control-sm" name="roles" multiple size="1"  >
+                    <select [(ngModel)] = "rolAdmin"  class="form-control form-control-sm" name="roles" multiple size="1" required >
                       
                       <option [ngValue]="1" selected>ADMIN_ROL</option>  
                   </select>
@@ -43,7 +43,7 @@
               
                 <div class="form-group m-b-40 col-md-4" *ngIf="esEmpleado">
                     <label for="rol">Rol</label>
-                    <select [(ngModel)] = "userRoles" [compareWith]="compararRoles" class="form-control form-control-sm" name="roles" multiple >
+                    <select [(ngModel)] = "userRoles" [compareWith]="compararRoles" class="form-control form-control-sm" name="roles" multiple required >
                       
                       <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.rol}}</option>  
                   </select>
@@ -53,15 +53,15 @@
                 <div class="row">
                     <div class="form-group col-md-6 m-b-40">
                       <label for="nombre">Nombre</label>
-                      <input [(ngModel)] = "empleado.nombre" class="form-control form-control-sm" name="nombre"  />
+                      <input [(ngModel)] = "empleado.nombre" class="form-control form-control-sm" name="nombre" required />
                       <label for="apellidos">Apellidos</label>
-                      <input [(ngModel)] = "empleado.apellidos" class="form-control form-control-sm" name="apellidos"  />
+                      <input [(ngModel)] = "empleado.apellidos" class="form-control form-control-sm" name="apellidos" required />
                     </div>
                     <div class="form-group col-md-6 m-b-40">
                       <label for="dni">DNI</label>
-                      <input [(ngModel)] = "empleado.dni" class="form-control form-control-sm" name="dni"  />
+                      <input [(ngModel)] = "empleado.dni" class="form-control form-control-sm" name="dni" required />
                       <label for="sede">Sede</label>
-                      <select [(ngModel)] = "empleado.sede.id" class="form-control form-control-sm" name="sede"  >
+                      <select [(ngModel)] = "empleado.sede.id" class="form-control form-control-sm" name="sede" required >
                           <option value="">Elige sede</option> 
                           <option *ngFor="let sede of sedes" value="{{sede.id}}">{{sede.nombre}}</option>  
                       </select>
@@ -71,7 +71,7 @@
                 <div class="row">
                   <div class="form-group col-md-6 m-b-40">
                       <label for="turno">Turno</label>
-                    <select  [(ngModel)]= "empleado.turno.id" (change) = "cargaHorario($event.target.value)" class="form-control form-control-sm" name="turno"  >
+                    <select  [(ngModel)]= "empleado.turno.id" (change) = "cargaHorario($event.target.value)" class="form-control form-control-sm" name="turno" required >
                       <option value="">Elige turno</option> 
                       <option *ngFor="let turno of turnos" value="{{turno.id}}">{{turno.turno}}</option>  
                   </select>
@@ -85,15 +85,6 @@
                         <div class="form-group col-md-6 m-b-20">
                             <label for="horario">Horario salida</label>
                             <input [(ngModel)] = "horaSalida" type="time" min= "{{ minTimeSalida }}" max = "{{ maxTimeSalida }}" class="form-control form-control-sm mb-2" name="horaSalida"  />
-                            <!-- <select  [(ngModel)] = "horaEntrada" name="horaEntrada">
-                                <option *ngFor="let hora of horasManana" >08:00</option>
-                           
-                                id="time"  data-dtp="dtp_Lc0n6"
-        
-                            </select> -->
-                            
-                    
-          
                         </div>
                       </div>
     
@@ -105,19 +96,10 @@
                             <div class="form-group col-md-6 m-b-40">
                                 <input   [(ngModel)] = "horaSalidaPartido" type="time" min= "{{ minTimeSalidaPartido }}" max = "{{ maxTimeSalidaPartido }}" class="form-control form-control-sm " name="horaSalidaPartido"  />
                             </div>
-                           
-                            
-                   
-          
-                          
                       </div>
                   </div>
-
-
               </div>
              </div> 
-
-
             <div class="row justify-content-end no-gutters">
                 <div>
                   <button
