@@ -55,7 +55,7 @@ export class EmpresasComponent implements OnInit {
     this._empresasService
       .getEmpresas(this.paginaActual)
       .subscribe((resp: any) => {
-        
+        console.log(resp);
         this.empresas = resp.empresas;
         this.paginacion = resp.paginacion;
         this.paginasTotales = resp.paginacion.paginas;
@@ -87,8 +87,12 @@ export class EmpresasComponent implements OnInit {
     
     this._empresasService
       .updateEmpresa(empresa)
-      .subscribe((resp) => console.log(resp));
-    this.obtenerEmpresas();
+      .subscribe(
+        (resp) => {
+          console.log(resp);
+          this.obtenerEmpresas();
+        });
+   
   }
 
   /**

@@ -15,9 +15,8 @@ import { ErrorService } from '../../services/errors/error.service';
   styles: [],
 })
 export class NotificacionComponent implements OnInit {
-  idEmpleado = localStorage.getItem('idEmpleado')
-    ? localStorage.getItem('idEmpleado')
-    : '';
+  idEmpleado = localStorage.getItem('idEmpleado') ? localStorage.getItem('idEmpleado') : '';
+  
   usuario: Usuario = JSON.parse(localStorage.getItem('usuario'));
 
   loginEmisor = this.usuario.login;
@@ -45,6 +44,7 @@ export class NotificacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     // se reciben los parametros, si no es nuevo se carga la notificación, si no en blanco
     this.activatedRoute.params.subscribe((params) => {
       const id = params.id;
@@ -128,15 +128,18 @@ export class NotificacionComponent implements OnInit {
         );
     } else {
       // actualizar
+      console.log(f.value.fecha);
+      console.log(this.idEmpleado);
       const fechaFormulario = f.value.fecha.split('/');
 
       const fecha: Date = new Date(
         fechaFormulario[2],
-        fechaFormulario[1],
+        (fechaFormulario[1] - 1),
         fechaFormulario[0]
       );
+      console.log(fecha);
 
-      const notificacion = {
+      let notificacion = {
         id: f.value.id,
         fecha: fecha
           .toLocaleString('en-CA', {
@@ -146,12 +149,13 @@ export class NotificacionComponent implements OnInit {
           })
           .replace('/', '-')
           .replace('/', '-'),
-        texto_notificacion: f.value.texto_notificacion,
+        texto_notificacion: this.notificacion.texto_notificacion,
         texto_respuesta: f.value.texto_respuesta,
         leida: '1',
-        idEMPLEADO: this.notificacion.idEMPLEADO,
+        idEMPLEADO: this.idEmpleado,
         loginEmisor: this.notificacion.loginEmisor,
       };
+      console.log(notificacion);
       this._notificacionesService
         .actualizarNotificacion(notificacion)
         .subscribe(
@@ -177,6 +181,7 @@ export class NotificacionComponent implements OnInit {
    * Regresa a la ruta por donde haya venido el usuario.
    */
   volver() {
+    console.log(this._notificacionesService.rutaPadre);
     this.router.navigate([this._notificacionesService.rutaPadre]);
   }
 }
